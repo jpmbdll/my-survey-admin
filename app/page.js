@@ -3,146 +3,101 @@ import { UserButton } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import { BarChart } from "@/components/bar-chart";
-
-// const countVotes = (data) => {
-//   const questions = Object.keys(data[0]).filter((key) => key !== "Timestamp");
-
-//   return questions.map((question) => {
-//     const count = {};
-
-//     data.forEach((entry) => {
-//       const option = entry[question].replace("Option ", "");
-//       count[option] = (count[option] || 0) + 1;
-//     });
-
-//     const dataCount = Object.keys(count).map((option) => ({
-//       option,
-//       value: count[option],
-//     }));
-
-//     return { title: question, dataCount };
-//   });
-// };
+import computeStandardDeviation from "@/utils/compute-standard-deviation";
+import filterPerType from "@/utils/filter-per-type";
+import computeMean from "@/utils/compute-mean";
+import filterRespondentsValuePerQuestion from "@/utils/filter-respondents-value-per-question";
+import transformDataToUI from "@/utils/transform-data-to-ui";
 
 export default function Home() {
-  // const data = [
-  //   {
-  //     Timestamp: "15/02/2024 16:07:34",
-  //     question1: "Option 2",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:45:58",
-  //     question1: "Option 1",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:47:26",
-  //     question1: "Option 1",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:55:29",
-  //     question1: "Option 2",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:55:49",
-  //     question1: "Option 2",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:56:30",
-  //     question1: "Option 1",
-  //     question2: "Option 1",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:56:41",
-  //     question1: "Option 1",
-  //     question2: "Option 2",
-  //   },
-  //   {
-  //     Timestamp: "24/02/2024 13:58:36",
-  //     question1: "Option 1",
-  //     question2: "Option 2",
-  //   },
-  // ];
-
-  // console.log(countVotes(data));
-
-  // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-  // const RADIAN = Math.PI / 180;
-  // const renderCustomizedLabel = ({
-  //   cx,
-  //   cy,
-  //   midAngle,
-  //   innerRadius,
-  //   outerRadius,
-  //   percent,
-  //   index,
-  // }) => {
-  //   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  //   const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  //   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  //   return (
-  //     <text
-  //       x={x}
-  //       y={y}
-  //       fill="white"
-  //       textAnchor={x > cx ? "start" : "end"}
-  //       dominantBaseline="central"
-  //     >
-  //       {`${(percent * 100).toFixed(0)}%`}
-  //     </text>
-  //   );
-  // };
-
-  // const displayData = countVotes(data);
-  useEffect(() => {
-    const get = async () => {
-      try {
-        const res = await fetch(
-          "https://sheet.best/api/sheets/9d1d54f7-3c54-4123-b8a4-7215917c076f"
-        );
-        const data = await res.json();
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    get();
-  });
+  const data = [
+    {
+      Timestamp: "26/02/2024 14:50:37",
+      "Respondent type": "Student",
+      "1.1 Question": "2",
+      "1.2 Question": "1",
+      // "2.1 Question": "2",
+      // "2.2 Question": "2",
+      // "3.1 Question": "3",
+      // "3.2 Question": "3",
+    },
+    {
+      Timestamp: "26/02/2024 14:51:47",
+      "Respondent type": "Student",
+      "1.1 Question": "3",
+      "1.2 Question": "3",
+      // "2.1 Question": "3",
+      // "2.2 Question": "4",
+      // "3.1 Question": "4",
+      // "3.2 Question": "4",
+    },
+    {
+      Timestamp: "26/02/2024 14:51:59",
+      "Respondent type": "Alumni",
+      "1.1 Question": "2",
+      "1.2 Question": "3",
+      // "2.1 Question": "3",
+      // "2.2 Question": "3",
+      // "3.1 Question": "4",
+      // "3.2 Question": "4",
+    },
+    {
+      Timestamp: "26/02/2024 14:51:59",
+      "Respondent type": "Faculty",
+      "1.1 Question": "3",
+      "1.2 Question": "3",
+      // "2.1 Question": "5",
+      // "2.2 Question": "3",
+      // "3.1 Question": "4",
+      // "3.2 Question": "4",
+    },
+    {
+      Timestamp: "26/02/2024 14:51:59",
+      "Respondent type": "Faculty",
+      "1.1 Question": "4",
+      "1.2 Question": "3",
+      // "2.1 Question": "5",
+      // "2.2 Question": "3",
+      // "3.1 Question": "4",
+      // "3.2 Question": "4",
+    },
+  ];
+  // useEffect(() => {
+  //   const get = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         "https://sheet.best/api/sheets/539a76a7-e086-45c8-8fb1-e584db6f48e0"
+  //       );
+  //       const data = await res.json();
+  //       console.log(JSON.stringify(data));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   get();
+  // });
+  console.log(transformDataToUI(data));
   return (
     <Box width="100vw" height="100vh">
       <UserButton />
       <BarChart />
-      {/* {displayData.map((data, i) => (
-        <Box width={"200px"} height="200px" key={i}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data.dataCount}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={renderCustomizedLabel}
-                outerRadius={"100%"}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {data.dataCount.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </Box>
-      ))} */}
     </Box>
   );
 }
+
+// [
+//   {
+//     title: "1.1 Question",
+//     averages: [
+//       { respondentType: "Sudent", average: 2.5 },
+//       { respondentType: "Alumni", average: 2 },
+//     ],
+//   },
+//   {
+//     title: "1.2 Question",
+//     averages: [
+//       { respondentType: "Sudent", average: 2 },
+//       { respondentType: "Alumni", average: 3 },
+//     ],
+//   },
+// ];
