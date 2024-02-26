@@ -98,7 +98,7 @@ export default function Home() {
   //   );
   // };
 
-  const displayData = countVotes(data);
+  // const displayData = countVotes(data);
   useEffect(() => {
     const get = async () => {
       try {
