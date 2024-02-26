@@ -98,21 +98,21 @@ export default function Home() {
   //   );
   // };
 
-  // const displayData = countVotes(data);
-  // useEffect(() => {
-  //   const get = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         "https://sheet.best/api/sheets/9d1d54f7-3c54-4123-b8a4-7215917c076f"
-  //       );
-  //       const data = await res.json();
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   get();
-  // });
+  const displayData = countVotes(data);
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const res = await fetch(
+          "https://sheet.best/api/sheets/9d1d54f7-3c54-4123-b8a4-7215917c076f"
+        );
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    get();
+  });
   return (
     <Box width="100vw" height="100vh">
       <UserButton />
