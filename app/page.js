@@ -2,6 +2,7 @@
 import { UserButton } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
+import { BarChart } from "@/components/bar-chart";
 
 // const countVotes = (data) => {
 //   const questions = Object.keys(data[0]).filter((key) => key !== "Timestamp");
@@ -116,6 +117,7 @@ export default function Home() {
   return (
     <Box width="100vw" height="100vh">
       <UserButton />
+      <BarChart />
       {/* {displayData.map((data, i) => (
         <Box width={"200px"} height="200px" key={i}>
           <ResponsiveContainer width="100%" height="100%">
