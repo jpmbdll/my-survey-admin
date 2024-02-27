@@ -4,7 +4,7 @@ import CardWithChart from "./bar-chart";
 
 export default function CardBar({ id, title, sd }) {
   return (
-    <Card key={id} bg="white" boxShadow="lg" border={"1px solid black"}>
+    <Card key={id} boxShadow="lg">
       <CardHeader as="h3" size="md" fontStyle="italic">
         {title}
       </CardHeader>

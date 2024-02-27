@@ -102,41 +102,43 @@ export default function Home() {
   // });
   console.log(transformDataToUI(data));
   return (
-    <Stack mx={{ sm: 6, md: 12 }} my={{ sm: 5, md: 10 }}>
-      <SimpleGrid columns={{ sm: 2, md: 3, lg: 6 }} spacing={5}>
-        {stats.map((card) => (
-          <CardStat
-            key={card.id}
-            title={card.title}
-            count={card.count}
-            main={card.main}
-          />
-        ))}
-      </SimpleGrid>
-      <Divider my={5} />
-      <Tabs variant="soft-rounded" colorScheme="blue" pd={0}>
-        <TabList>
-          <Tab>Tab 1</Tab>
-          <Tab>Tab 2</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel px={0}>
-            <SimpleGrid columns={[1, null, 2]} spacing={5} pd={0}>
-              {cards.map((card) => (
-                <CardBar
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  sd={"14.01"}
-                />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+    <Stack bg="#f0f0f0">
+      <Stack mx={{ base: 3, sm: 6, md: 12 }} my={{ base: 3, sm: 5, md: 10 }}>
+        <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
+          {stats.map((card) => (
+            <CardStat
+              key={card.id}
+              title={card.title}
+              count={card.count}
+              main={card.main}
+            />
+          ))}
+        </SimpleGrid>
+        <Divider my={5} borderColor="gray.300" />
+        <Tabs variant="soft-rounded" colorScheme="blue" pd={0}>
+          <TabList>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel px={0}>
+              <SimpleGrid columns={[1, null, 2]} spacing={5} pd={0}>
+                {cards.map((card) => (
+                  <CardBar
+                    key={card.id}
+                    id={card.id}
+                    title={card.title}
+                    sd={"14.01"}
+                  />
+                ))}
+              </SimpleGrid>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Stack>
     </Stack>
   );
 }
