@@ -1,13 +1,19 @@
 "use client";
-import { UserButton } from "@clerk/nextjs";
-import { useEffect } from "react";
-import { Box } from "@chakra-ui/react";
-import { BarChart } from "@/components/bar-chart";
-import computeStandardDeviation from "@/utils/compute-standard-deviation";
-import filterPerType from "@/utils/filter-per-type";
-import computeMean from "@/utils/compute-mean";
-import filterRespondentsValuePerQuestion from "@/utils/filter-respondents-value-per-question";
+
 import transformDataToUI from "@/utils/transform-data-to-ui";
+import CardBar from "@/components/card-bar";
+import CardStat from "@/components/card-stat";
+import {
+  SimpleGrid,
+  Stack,
+  Divider,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab,
+  Button,
+} from "@chakra-ui/react";
 
 export default function Home() {
   const data = [
@@ -62,6 +68,24 @@ export default function Home() {
       // "3.2 Question": "4",
     },
   ];
+
+  const cards = [
+    { id: 1, title: "Card 1", content: "Content for Card 1" },
+    { id: 2, title: "Card 2", content: "Content for Card 2" },
+    { id: 3, title: "Card 3", content: "Content for Card 3" },
+    { id: 4, title: "Card 4", content: "Content for Card 4" },
+    { id: 5, title: "Card 5", content: "Content for Card 5" },
+    { id: 6, title: "Card 6", content: "Content for Card 6" },
+  ];
+
+  const stats = [
+    { id: 1, title: "Total Respondents", count: 10, main: true },
+    { id: 2, title: "Students", count: 15 },
+    { id: 3, title: "Faculty", count: 45 },
+    { id: 4, title: "Alumni", count: 123 },
+    { id: 5, title: "Parents", count: 42 },
+    { id: 6, title: "Maintenance", count: 6 },
+  ];
   // useEffect(() => {
   //   const get = async () => {
   //     try {
@@ -78,26 +102,41 @@ export default function Home() {
   // });
   console.log(transformDataToUI(data));
   return (
-    <Box width="100vw" height="100vh">
-      <UserButton />
-      <BarChart />
-    </Box>
+    <Stack mx={{ sm: 6, md: 12 }} my={{ sm: 5, md: 10 }}>
+      <SimpleGrid columns={{ sm: 2, md: 3, lg: 6 }} spacing={5}>
+        {stats.map((card) => (
+          <CardStat
+            key={card.id}
+            title={card.title}
+            count={card.count}
+            main={card.main}
+          />
+        ))}
+      </SimpleGrid>
+      <Divider my={5} />
+      <Tabs variant="soft-rounded" colorScheme="blue" pd={0}>
+        <TabList>
+          <Tab>Tab 1</Tab>
+          <Tab>Tab 2</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel px={0}>
+            <SimpleGrid columns={[1, null, 2]} spacing={5} pd={0}>
+              {cards.map((card) => (
+                <CardBar
+                  key={card.id}
+                  id={card.id}
+                  title={card.title}
+                  sd={"14.01"}
+                />
+              ))}
+            </SimpleGrid>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Stack>
   );
 }
-
-// [
-//   {
-//     title: "1.1 Question",
-//     averages: [
-//       { respondentType: "Sudent", average: 2.5 },
-//       { respondentType: "Alumni", average: 2 },
-//     ],
-//   },
-//   {
-//     title: "1.2 Question",
-//     averages: [
-//       { respondentType: "Sudent", average: 2 },
-//       { respondentType: "Alumni", average: 3 },
-//     ],
-//   },
-// ];
