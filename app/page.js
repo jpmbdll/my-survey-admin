@@ -12,7 +12,6 @@ import {
   TabPanels,
   TabPanel,
   Tab,
-  Button,
 } from "@chakra-ui/react";
 
 export default function Home() {
@@ -114,7 +113,7 @@ export default function Home() {
             />
           ))}
         </SimpleGrid>
-        <Divider my={5} borderColor="gray.300" />
+        <Divider my={{ base: 2, md: 5 }} borderColor="gray.300" />
         <Tabs variant="soft-rounded" colorScheme="blue" pd={0}>
           <TabList>
             <Tab>Tab 1</Tab>
