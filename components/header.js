@@ -1,45 +1,68 @@
 "use client";
 
-import React from "react";
-import { Flex, Box, Heading, Button, Stack } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Flex, Box, Heading, Button, Stack, Icon } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
 import { UserButton } from "@clerk/nextjs";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { FaHouse, FaChartColumn } from "react-icons/fa6";
 import MenuAction from "./menu-action";
 
 export function Header() {
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
+  const [selected, setSelected] = useState("home");
   return (
     <Flex
       align="center"
       justify="space-between"
-      padding="1rem"
+      paddingY={{ base: "0.5rem", md: "1rem" }}
+      paddingX={{ base: "1rem", md: "2.5rem" }}
       boxShadow="md"
-      bg="gray.800"
+      bg="white"
       spacing={2}
+      borderBottom={"1px solid"}
+      borderColor={"gray.200"}
     >
       <Box>
-        <Heading size="sm" color="white">
+        <Heading
+          size={{ base: "sm", md: "md" }}
+          fontWeight="600"
+          color="gray.700"
+        >
           My Survey Admin
         </Heading>
       </Box>
       {!isSmallScreen && (
-        <Stack spacing={4} direction="row">
-          <Button colorScheme="messenger" fontSize="sm" w={100}>
-            Home
-          </Button>
-          <Button colorScheme="messenger" fontSize="sm" w={100}>
-            About
-          </Button>
-          <Button colorScheme="messenger" fontSize="sm" w={100}>
-            Contact
-          </Button>
-        </Stack>
-      )}
-      {!isSmallScreen && (
-        <Box>
+        <Stack spacing={10} direction={"row"}>
+          <Stack spacing={3} direction={"row"}>
+            <Button
+              leftIcon={<Icon pb={0.5} as={FaHouse} />}
+              variant="ghost"
+              color={selected === "home" ? "red.700" : "gray.600"}
+              fontWeight="600"
+              fontSize="md"
+              px={2}
+              py={1}
+              _hover={{ color: "red.700" }}
+              onClick={() => setSelected("home")}
+            >
+              Home
+            </Button>
+            <Button
+              leftIcon={<Icon pb={0.5} as={FaChartColumn} />}
+              variant="ghost"
+              color={selected === "stats" ? "red.700" : "gray.600"}
+              fontWeight="600"
+              fontSize="md"
+              px={2}
+              py={1}
+              _hover={{ color: "red.700" }}
+              onClick={() => setSelected("stats")}
+            >
+              Statistics
+            </Button>
+          </Stack>
           <UserButton />
-        </Box>
+        </Stack>
       )}
       {isSmallScreen && (
         <Stack align="center" direction="row" spacing={3}>

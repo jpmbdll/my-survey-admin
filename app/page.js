@@ -82,8 +82,8 @@ export default function Home() {
     { id: 2, title: "Students", count: 15 },
     { id: 3, title: "Faculty", count: 45 },
     { id: 4, title: "Alumni", count: 123 },
-    { id: 5, title: "Parents", count: 42 },
-    { id: 6, title: "Maintenance", count: 6 },
+    { id: 5, title: "Non-teaching Staff", count: 42 },
+    { id: 6, title: "Administrator", count: 6 },
   ];
   // useEffect(() => {
   //   const get = async () => {
@@ -101,8 +101,12 @@ export default function Home() {
   // });
   console.log(transformDataToUI(data));
   return (
-    <Stack bg="#f0f0f0">
-      <Stack mx={{ base: 3, sm: 6, md: 12 }} my={{ base: 3, sm: 5, md: 10 }}>
+    <Stack bg="#f2f2f2">
+      <Stack
+        mx={{ base: 3, sm: 6, md: 12 }}
+        my={{ base: 3, sm: 5, md: 10 }}
+        spacing={6}
+      >
         <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
           {stats.map((card) => (
             <CardStat
@@ -113,8 +117,7 @@ export default function Home() {
             />
           ))}
         </SimpleGrid>
-        <Divider my={{ base: 2, md: 5 }} borderColor="gray.300" />
-        <Tabs variant="soft-rounded" colorScheme="blue" pd={0}>
+        <Tabs colorScheme="red" pd={0}>
           <TabList>
             <Tab>Tab 1</Tab>
             <Tab>Tab 2</Tab>

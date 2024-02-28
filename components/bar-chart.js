@@ -40,7 +40,7 @@ const CardWithChart = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" stackId="a" fill="#6495ED" />
+          <Bar dataKey="pv" stackId="a" fill="#9B2C2C" />
         </BarChart>
       </ResponsiveContainer>
     </Box>
