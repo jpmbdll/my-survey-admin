@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect } from "react";
 import transformDataToUI from "@/utils/transform-data-to-ui";
 import CardBar from "@/components/card-bar";
 import CardStat from "@/components/card-stat";
@@ -13,8 +13,10 @@ import {
   TabPanel,
   Tab,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function Home() {
+  const [serverData, setServerData] = useState(null);
   const data = [
     {
       Timestamp: "26/02/2024 14:50:37",
@@ -81,29 +83,35 @@ export default function Home() {
     { id: 10, title: "Question 10" },
   ];
 
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const res = await fetch(
+          "https://sheet.best/api/sheets/539a76a7-e086-45c8-8fb1-e584db6f48e0"
+        );
+        const data = await res.json();
+        setServerData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    get();
+  }, []);
+  // console.log(transformDataToUI(data));
+  console.log(serverData);
   const stats = [
-    { id: 1, title: "Total Respondents", count: 10, main: true },
+    {
+      id: 1,
+      title: "Total Respondents",
+      count: serverData ? serverData.length : 0,
+      main: true,
+    },
     { id: 2, title: "Students", count: 15 },
     { id: 3, title: "Faculty", count: 45 },
     { id: 4, title: "Alumni", count: 123 },
     { id: 5, title: "Non-teaching Staff", count: 42 },
     { id: 6, title: "Administrator", count: 6 },
   ];
-  // useEffect(() => {
-  //   const get = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         "https://sheet.best/api/sheets/539a76a7-e086-45c8-8fb1-e584db6f48e0"
-  //       );
-  //       const data = await res.json();
-  //       console.log(JSON.stringify(data));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   get();
-  // });
-  console.log(transformDataToUI(data));
   return (
     <Stack bg="#f2f2f2">
       <Stack
