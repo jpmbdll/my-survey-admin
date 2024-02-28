@@ -69,12 +69,16 @@ export default function Home() {
   ];
 
   const cards = [
-    { id: 1, title: "Card 1", content: "Content for Card 1" },
-    { id: 2, title: "Card 2", content: "Content for Card 2" },
-    { id: 3, title: "Card 3", content: "Content for Card 3" },
-    { id: 4, title: "Card 4", content: "Content for Card 4" },
-    { id: 5, title: "Card 5", content: "Content for Card 5" },
-    { id: 6, title: "Card 6", content: "Content for Card 6" },
+    { id: 1, title: "Question 1" },
+    { id: 2, title: "Question 2" },
+    { id: 3, title: "Question 3" },
+    { id: 4, title: "Question 4" },
+    { id: 5, title: "Question 5" },
+    { id: 6, title: "Question 6" },
+    { id: 7, title: "Question 7" },
+    { id: 8, title: "Question 8" },
+    { id: 9, title: "Question 9" },
+    { id: 10, title: "Question 10" },
   ];
 
   const stats = [
@@ -119,12 +123,17 @@ export default function Home() {
         </SimpleGrid>
         <Tabs colorScheme="red" pd={0}>
           <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
+            <Tab fontSize={{ base: 14, md: 16 }}>Awareness</Tab>
+            <Tab fontSize={{ base: 14, md: 16 }}>Acceptance</Tab>
+            <Tab fontSize={{ base: 14, md: 16 }}>Understanding</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel px={0}>
-              <SimpleGrid columns={[1, null, 2]} spacing={5} pd={0}>
+            <TabPanel px={0} py={5}>
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, lg: 3 }}
+                spacing={5}
+                pd={0}
+              >
                 {cards.map((card) => (
                   <CardBar
                     key={card.id}
@@ -135,8 +144,37 @@ export default function Home() {
                 ))}
               </SimpleGrid>
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
+            <TabPanel px={0} py={5}>
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, lg: 3 }}
+                spacing={5}
+                pd={0}
+              >
+                {cards.map((card) => (
+                  <CardBar
+                    key={card.id}
+                    id={card.id}
+                    title={card.title}
+                    sd={"14.01"}
+                  />
+                ))}
+              </SimpleGrid>
+            </TabPanel>
+            <TabPanel px={0} py={5}>
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, lg: 3 }}
+                spacing={5}
+                pd={0}
+              >
+                {cards.map((card) => (
+                  <CardBar
+                    key={card.id}
+                    id={card.id}
+                    title={card.title}
+                    sd={"14.01"}
+                  />
+                ))}
+              </SimpleGrid>
             </TabPanel>
           </TabPanels>
         </Tabs>

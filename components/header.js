@@ -6,6 +6,7 @@ import { useBreakpointValue } from "@chakra-ui/react";
 import { UserButton } from "@clerk/nextjs";
 import { FaHouse, FaChartColumn } from "react-icons/fa6";
 import MenuAction from "./menu-action";
+import { Image } from "@chakra-ui/react";
 
 export function Header() {
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
@@ -22,15 +23,22 @@ export function Header() {
       borderBottom={"1px solid"}
       borderColor={"gray.200"}
     >
-      <Box>
+      <Stack direction="row" spacing={3}>
+        <Image
+          src="/bsu_logo.png"
+          width={{ base: 8, md: 10 }}
+          height={{ base: 8, md: 10 }}
+          alt="logo"
+        />
         <Heading
           size={{ base: "sm", md: "md" }}
           fontWeight="600"
           color="gray.700"
+          pt={1.5}
         >
           My Survey Admin
         </Heading>
-      </Box>
+      </Stack>
       {!isSmallScreen && (
         <Stack spacing={10} direction={"row"}>
           <Stack spacing={3} direction={"row"}>
