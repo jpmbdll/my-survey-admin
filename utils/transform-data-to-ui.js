@@ -19,7 +19,10 @@ export default function transformDataToUI(data) {
       ) {
         // If the question doesn't exist in the averages map, initialize it
         if (!averagesMap.has(key)) {
-          averagesMap.set(key, { title: key, averages: [] });
+          averagesMap.set(key, {
+            title: key,
+            averages: [],
+          });
         }
 
         // Get the averages object for this question
@@ -31,6 +34,7 @@ export default function transformDataToUI(data) {
         );
         if (!respondentAvg) {
           respondentAvg = {
+            xAxisLabel: response["Stakeholder Classification"].substring(0, 3),
             respondentType: response["Stakeholder Classification"],
             sum: 0,
             count: 0,

@@ -90,20 +90,17 @@ export default function Statistics() {
         <TabPanels>
           <TabPanel px={0} py={5}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
-              {transformDataToUI(data).map((card, i) => {
-                console.log(card.averages.map((obj) => obj.mean));
-                return (
-                  <CardBar
-                    key={i}
-                    id={i}
-                    title={card.title}
-                    averages={card.averages}
-                    sd={computeStandardDeviation(
-                      card.averages.map((obj) => obj.mean)
-                    )}
-                  />
-                );
-              })}
+              {transformDataToUI(data).map((card, i) => (
+                <CardBar
+                  key={i}
+                  id={i}
+                  title={card.title}
+                  averages={card.averages}
+                  sd={computeStandardDeviation(
+                    card.averages.map((obj) => obj.mean)
+                  )}
+                />
+              ))}
             </SimpleGrid>
           </TabPanel>
           <TabPanel px={0} py={5}>
