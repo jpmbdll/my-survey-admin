@@ -69,7 +69,7 @@ export function Header() {
               Statistics
             </Button>
           </Stack>
-          <UserButton />
+          <UserButton afterSignOutUrl="/sign-in" />
         </Stack>
       )}
       {isSmallScreen && (
