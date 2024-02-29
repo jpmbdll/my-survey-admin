@@ -32,15 +32,38 @@ export default function Statistics() {
     {
       id: 1,
       title: "Total Respondents",
-      count: data ? data.length : 0,
+      count: 0,
       main: true,
     },
-    { id: 2, title: "Students", count: 15 },
-    { id: 3, title: "Faculty", count: 45 },
-    { id: 4, title: "Alumni", count: 123 },
-    { id: 5, title: "Non-teaching Staff", count: 42 },
-    { id: 6, title: "Administrator", count: 6 },
+    { id: 2, title: "Students", count: 0 },
+    { id: 3, title: "Faculty", count: 0 },
+    { id: 4, title: "Alumni", count: 0 },
+    { id: 5, title: "Non-teaching Staff", count: 0 },
+    { id: 6, title: "Administrator", count: 0 },
   ];
+
+  data.forEach((item) => {
+    stats[0].count++;
+    switch (item["Stakeholder Classification"]) {
+      case "Student":
+        stats[1].count++;
+        break;
+      case "Alumni":
+        stats[3].count++;
+        break;
+      case "Administrator":
+        stats[5].count++;
+        break;
+      case "Faculty":
+        stats[2].count++;
+        break;
+      case "Non-teaching Staff":
+        stats[4].count++;
+        break;
+      default:
+        break;
+    }
+  });
 
   return (
     <Stack

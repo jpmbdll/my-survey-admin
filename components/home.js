@@ -29,6 +29,7 @@ export default function Home() {
     >
       {map.map(({ title, content }, i) => (
         <Card
+          key={i}
           flex={{ base: "0 0 100%", lg: "0 0 calc(50% - 24px)" }}
           maxWidth={{ base: "100%", lg: "calc(50% - 24px)" }}
           margin={3}
