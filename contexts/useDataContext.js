@@ -18,7 +18,7 @@ export const DataProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "https://sheet.best/api/sheets/7636c204-81b5-4e16-b985-800090cef914"
+        "https://sheet.best/api/sheets/c7eccd1c-ad75-44fc-b3e3-de5d0a9787b9"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
