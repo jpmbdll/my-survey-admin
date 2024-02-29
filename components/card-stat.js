@@ -4,7 +4,7 @@ import {
   FaUser,
   FaUserGraduate,
   FaUserTie,
-  FaUserSecret,
+  FaUserLock,
   FaUserShield,
 } from "react-icons/fa6";
 
@@ -24,7 +24,7 @@ export default function CardStat({ title, count, main = false }) {
       icon = <Icon as={FaUserShield} />;
       break;
     case "Administrator":
-      icon = <Icon as={FaUserSecret} />;
+      icon = <Icon as={FaUserLock} />;
       break;
     default:
       icon = null;

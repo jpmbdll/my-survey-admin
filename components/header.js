@@ -1,16 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { Flex, Box, Heading, Button, Stack, Icon } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Heading, Button, Stack, Icon } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
 import { UserButton } from "@clerk/nextjs";
 import { FaHouse, FaChartColumn } from "react-icons/fa6";
 import MenuAction from "./menu-action";
 import { Image } from "@chakra-ui/react";
+import { useDataContext } from "@/contexts/useDataContext";
 
 export function Header() {
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
-  const [selected, setSelected] = useState("home");
+  const { page, setPage } = useDataContext();
   return (
     <Flex
       align="center"
@@ -45,26 +46,26 @@ export function Header() {
             <Button
               leftIcon={<Icon pb={0.5} as={FaHouse} />}
               variant="ghost"
-              color={selected === "home" ? "red.700" : "gray.600"}
+              color={page === "home" ? "red.700" : "gray.600"}
               fontWeight="600"
               fontSize="md"
               px={2}
               py={1}
               _hover={{ color: "red.700" }}
-              onClick={() => setSelected("home")}
+              onClick={() => setPage("home")}
             >
               Home
             </Button>
             <Button
               leftIcon={<Icon pb={0.5} as={FaChartColumn} />}
               variant="ghost"
-              color={selected === "stats" ? "red.700" : "gray.600"}
+              color={page === "stats" ? "red.700" : "gray.600"}
               fontWeight="600"
               fontSize="md"
               px={2}
               py={1}
               _hover={{ color: "red.700" }}
-              onClick={() => setSelected("stats")}
+              onClick={() => setPage("stats")}
             >
               Statistics
             </Button>
