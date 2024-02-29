@@ -4,7 +4,6 @@ import CardStat from "@/components/card-stat";
 import {
   SimpleGrid,
   Stack,
-  Divider,
   Tabs,
   TabList,
   TabPanels,
@@ -12,6 +11,8 @@ import {
   Tab,
 } from "@chakra-ui/react";
 import { useDataContext } from "@/contexts/useDataContext";
+import transformDataToUI from "@/utils/transform-data-to-ui";
+import computeStandardDeviation from "@/utils/compute-standard-deviation";
 
 export default function Statistics() {
   const { data } = useDataContext();
@@ -64,7 +65,6 @@ export default function Statistics() {
         break;
     }
   });
-
   return (
     <Stack
       mx={{ base: 3, sm: 6, md: 12 }}
@@ -89,15 +89,21 @@ export default function Statistics() {
         </TabList>
         <TabPanels>
           <TabPanel px={0} py={5}>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} pd={0}>
-              {cards.map((card) => (
-                <CardBar
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  sd={"14.01"}
-                />
-              ))}
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
+              {transformDataToUI(data).map((card, i) => {
+                console.log(card.averages.map((obj) => obj.mean));
+                return (
+                  <CardBar
+                    key={i}
+                    id={i}
+                    title={card.title}
+                    averages={card.averages}
+                    sd={computeStandardDeviation(
+                      card.averages.map((obj) => obj.mean)
+                    )}
+                  />
+                );
+              })}
             </SimpleGrid>
           </TabPanel>
           <TabPanel px={0} py={5}>

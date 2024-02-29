@@ -5,7 +5,18 @@ export default function transformDataToUI(data) {
   data.forEach((response) => {
     Object.keys(response).forEach((key) => {
       // Skip Timestamp and Respondent type keys
-      if (key !== "Timestamp" && key !== "Respondent type") {
+      if (
+        ![
+          "Timestamp",
+          "Name ",
+          "Age",
+          "Sex",
+          "Stakeholder Classification",
+          "Year Level ( for student)",
+          "College",
+          "Department ( for student and faculty only)",
+        ].includes(key)
+      ) {
         // If the question doesn't exist in the averages map, initialize it
         if (!averagesMap.has(key)) {
           averagesMap.set(key, { title: key, averages: [] });
@@ -16,11 +27,11 @@ export default function transformDataToUI(data) {
 
         // Find or create the average object for this respondent type
         let respondentAvg = averagesObj.averages.find(
-          (avg) => avg.respondentType === response["Respondent type"]
+          (avg) => avg.respondentType === response["Stakeholder Classification"]
         );
         if (!respondentAvg) {
           respondentAvg = {
-            respondentType: response["Respondent type"],
+            respondentType: response["Stakeholder Classification"],
             sum: 0,
             count: 0,
           };
@@ -37,7 +48,7 @@ export default function transformDataToUI(data) {
   // Compute the averages
   const averagesArray = Array.from(averagesMap.values()).map((averagesObj) => {
     averagesObj.averages.forEach((avg) => {
-      avg.average = avg.sum / avg.count;
+      avg.mean = avg.sum / avg.count;
       delete avg.sum;
       delete avg.count;
     });
