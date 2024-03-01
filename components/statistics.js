@@ -9,26 +9,95 @@ import {
   TabPanels,
   TabPanel,
   Tab,
+  Skeleton,
 } from "@chakra-ui/react";
 import { useDataContext } from "@/contexts/useDataContext";
 import transformDataToUI from "@/utils/transform-data-to-ui";
 import computeStandardDeviation from "@/utils/compute-standard-deviation";
 
 export default function Statistics() {
-  const { data } = useDataContext();
-  const cards = [
-    { id: 1, title: "Question 1" },
-    { id: 2, title: "Question 2" },
-    { id: 3, title: "Question 3" },
-    { id: 4, title: "Question 4" },
-    { id: 5, title: "Question 5" },
-    { id: 6, title: "Question 6" },
-    { id: 7, title: "Question 7" },
-    { id: 8, title: "Question 8" },
-    { id: 9, title: "Question 9" },
-    { id: 10, title: "Question 10" },
-  ];
+  const { data, isLoading } = useDataContext();
 
+  return (
+    <Stack
+      mx={{ base: 3, sm: 6, md: 12 }}
+      my={{ base: 3, sm: 5, md: 10 }}
+      spacing={6}
+    >
+      <RenderCount />
+      <Tabs colorScheme="red" pd={0}>
+        <TabList>
+          <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+            Awareness
+          </Tab>
+          <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+            Acceptance
+          </Tab>
+          <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+            Understanding
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel px={0} py={5}>
+            {isLoading && (
+              <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((card, i) => (
+                  <Skeleton key={card + i} height="360px" width="100%" />
+                ))}
+              </SimpleGrid>
+            )}
+            {!isLoading && (
+              <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
+                {transformDataToUI(data)
+                  .slice(0, 30) //remove
+                  .map((card, i) => (
+                    <CardBar
+                      key={i}
+                      id={i}
+                      title={card.title}
+                      averages={card.averages}
+                      sd={computeStandardDeviation(
+                        card.averages.map((obj) => obj.mean)
+                      )}
+                    />
+                  ))}
+              </SimpleGrid>
+            )}
+          </TabPanel>
+          <TabPanel px={0} py={5}>
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, lg: 3 }}
+              spacing={5}
+              pd={0}
+            ></SimpleGrid>
+          </TabPanel>
+          <TabPanel px={0} py={5}>
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, lg: 3 }}
+              spacing={5}
+              pd={0}
+            ></SimpleGrid>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Stack>
+  );
+}
+
+function RenderCount() {
+  const { data, isLoading } = useDataContext();
+
+  console.log(isLoading);
+
+  if (isLoading) {
+    return (
+      <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
+        {[1, 2, 3, 4, 5, 6].map((card, i) => (
+          <Skeleton key={card + i} height="97px" width="100%" />
+        ))}
+      </SimpleGrid>
+    );
+  }
   const stats = [
     {
       id: 1,
@@ -65,70 +134,17 @@ export default function Statistics() {
         break;
     }
   });
+
   return (
-    <Stack
-      mx={{ base: 3, sm: 6, md: 12 }}
-      my={{ base: 3, sm: 5, md: 10 }}
-      spacing={6}
-    >
-      <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
-        {stats.map((card) => (
-          <CardStat
-            key={card.id}
-            title={card.title}
-            count={card.count}
-            main={card.main}
-          />
-        ))}
-      </SimpleGrid>
-      <Tabs colorScheme="red" pd={0}>
-        <TabList>
-          <Tab fontSize={{ base: 14, md: 16 }}>Awareness</Tab>
-          <Tab fontSize={{ base: 14, md: 16 }}>Acceptance</Tab>
-          <Tab fontSize={{ base: 14, md: 16 }}>Understanding</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel px={0} py={5}>
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
-              {transformDataToUI(data).map((card, i) => (
-                <CardBar
-                  key={i}
-                  id={i}
-                  title={card.title}
-                  averages={card.averages}
-                  sd={computeStandardDeviation(
-                    card.averages.map((obj) => obj.mean)
-                  )}
-                />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel px={0} py={5}>
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={5} pd={0}>
-              {cards.map((card) => (
-                <CardBar
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  sd={"14.01"}
-                />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel px={0} py={5}>
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={5} pd={0}>
-              {cards.map((card) => (
-                <CardBar
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  sd={"14.01"}
-                />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Stack>
+    <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
+      {stats.map((card) => (
+        <CardStat
+          key={card.id}
+          title={card.title}
+          count={card.count}
+          main={card.main}
+        />
+      ))}
+    </SimpleGrid>
   );
 }
