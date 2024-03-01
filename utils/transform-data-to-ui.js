@@ -1,3 +1,5 @@
+import transformQuestion from "./transform-question";
+
 export default function transformDataToUI(data) {
   const averagesMap = new Map();
 
@@ -20,7 +22,7 @@ export default function transformDataToUI(data) {
         // If the question doesn't exist in the averages map, initialize it
         if (!averagesMap.has(key)) {
           averagesMap.set(key, {
-            title: key,
+            title: transformQuestion(key),
             averages: [],
           });
         }
@@ -61,3 +63,10 @@ export default function transformDataToUI(data) {
 
   return averagesArray;
 }
+
+[
+  "1.1.2 Is played in classrooms, office, and social media. media",
+  "1.2.10. Communicates the dreams of the University",
+  "1.3.2. Is desseminated to students, faculty members andd stakeholders through various print media",
+  "1.4.4. Perceive the effectiveness of Batangas State University's efforts towards achieving a brand of excellence",
+];
