@@ -25,7 +25,6 @@ const fetchData = async () => {
 // Component to provide data through context
 export const DataProvider = ({ children }) => {
   const { data, isLoading, isError } = useQuery("data", fetchData);
-  const [page, setPage] = useState("home");
 
   // Fetch data when component mounts
   useEffect(() => {
@@ -33,7 +32,7 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ data, isLoading, isError, page, setPage }}>
+    <DataContext.Provider value={{ data, isLoading, isError }}>
       {children}
     </DataContext.Provider>
   );

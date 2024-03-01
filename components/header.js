@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { Flex, Heading, Button, Stack, Icon } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -7,11 +7,12 @@ import { UserButton } from "@clerk/nextjs";
 import { FaHouse, FaChartColumn } from "react-icons/fa6";
 import MenuAction from "./menu-action";
 import { Image } from "@chakra-ui/react";
-import { useDataContext } from "@/contexts/useDataContext";
 
 export function Header() {
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
-  const { page, setPage } = useDataContext();
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <Flex
       align="center"
@@ -46,26 +47,26 @@ export function Header() {
             <Button
               leftIcon={<Icon pb={0.5} as={FaHouse} />}
               variant="ghost"
-              color={page === "home" ? "red.700" : "gray.600"}
+              color={pathname === "/" ? "red.700" : "gray.600"}
               fontWeight="600"
               fontSize="md"
               px={2}
               py={1}
               _hover={{ color: "red.700" }}
-              onClick={() => setPage("home")}
+              onClick={() => router.push("/")}
             >
               Home
             </Button>
             <Button
               leftIcon={<Icon pb={0.5} as={FaChartColumn} />}
               variant="ghost"
-              color={page === "stats" ? "red.700" : "gray.600"}
+              color={pathname === "/statistics" ? "red.700" : "gray.600"}
               fontWeight="600"
               fontSize="md"
               px={2}
               py={1}
               _hover={{ color: "red.700" }}
-              onClick={() => setPage("stats")}
+              onClick={() => router.push("/statistics")}
             >
               Statistics
             </Button>

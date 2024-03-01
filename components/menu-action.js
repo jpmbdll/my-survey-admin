@@ -3,10 +3,11 @@ import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa6";
 import { FaHouse, FaChartColumn } from "react-icons/fa6";
-import { useDataContext } from "@/contexts/useDataContext";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function MenuAction() {
-  const { page, setPage } = useDataContext();
+  const router = useRouter();
+  const pathname = usePathname();
   return (
     <Menu>
       <MenuButton
@@ -23,18 +24,16 @@ export default function MenuAction() {
         <MenuItem
           _hover={{ color: "red.700" }}
           icon={<FaHouse />}
-          onClick={() => {
-            setPage("home");
-          }}
+          color={pathname === "/" ? "red.700" : "gray.700"}
+          onClick={() => router.push("/")}
         >
           Home
         </MenuItem>
         <MenuItem
           _hover={{ color: "red.700" }}
           icon={<FaChartColumn />}
-          onClick={() => {
-            setPage("stats");
-          }}
+          color={pathname === "/statistics" ? "red.700" : "gray.700"}
+          onClick={() => router.push("/statistics")}
         >
           Statistics
         </MenuItem>
