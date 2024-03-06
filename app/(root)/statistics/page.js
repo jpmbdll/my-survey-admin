@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import CardBar from "@/components/card-bar";
 import CardStat from "@/components/card-stat";
 import {
@@ -20,11 +20,27 @@ import filterByCategory from "@/utils/filter-by-category";
 
 export default function Statistics() {
   const { data, isLoading } = useDataContext();
+  const MemoizedTransformDataToUI = useCallback(transformDataToUI, []);
 
-  const fullData = isLoading ? [] : transformDataToUI(data);
-  const tabData1 = fullData.filter((item) => item.title.startsWith("1"));
-  const tabData2 = fullData.filter((item) => item.title.startsWith("2"));
-  const tabData3 = fullData.filter((item) => item.title.startsWith("3"));
+  const fullData = useMemo(() => {
+    if (isLoading) {
+      return [];
+    }
+    return MemoizedTransformDataToUI(data);
+  }, [data, isLoading]);
+
+  const tabData1 = useMemo(
+    () => fullData.filter((item) => item.title.startsWith("1")),
+    [fullData]
+  );
+  const tabData2 = useMemo(
+    () => fullData.filter((item) => item.title.startsWith("2")),
+    [fullData]
+  );
+  const tabData3 = useMemo(
+    () => fullData.filter((item) => item.title.startsWith("3")),
+    [fullData]
+  );
 
   return (
     <Stack bg="#f2f2f2" width="100%" height="100%">
@@ -50,8 +66,8 @@ export default function Statistics() {
             <TabPanel px={0} py={5}>
               {isLoading && (
                 <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((card, i) => (
-                    <Skeleton key={card + i} height="320px" width="100%" />
+                  {[...Array(10)].map((card, i) => (
+                    <Skeleton key={i} height="320px" width="100%" />
                   ))}
                 </SimpleGrid>
               )}
@@ -157,8 +173,8 @@ function RenderCount() {
   if (isLoading) {
     return (
       <SimpleGrid columns={{ base: 2, sm: 3, lg: 6 }} spacing={5}>
-        {[1, 2, 3, 4, 5, 6].map((card, i) => (
-          <Skeleton key={card + i} height="97px" width="100%" />
+        {[...Array(6)].map((card, i) => (
+          <Skeleton key={i} height="97px" width="100%" />
         ))}
       </SimpleGrid>
     );
