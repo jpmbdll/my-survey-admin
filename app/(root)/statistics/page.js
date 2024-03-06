@@ -20,14 +20,17 @@ import filterByCategory from "@/utils/filter-by-category";
 
 export default function Statistics() {
   const { data, isLoading } = useDataContext();
-  const MemoizedTransformDataToUI = useCallback(transformDataToUI, []);
+  const memoizedTransformFunction = useCallback(
+    () => transformDataToUI(data),
+    [data]
+  );
 
   const fullData = useMemo(() => {
     if (isLoading) {
       return [];
     }
-    return MemoizedTransformDataToUI(data);
-  }, [data, isLoading]);
+    return memoizedTransformFunction();
+  }, [memoizedTransformFunction, isLoading]);
 
   const tabData1 = useMemo(
     () => fullData.filter((item) => item.title.startsWith("1")),
