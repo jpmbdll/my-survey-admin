@@ -16,6 +16,7 @@ export default function transformDataToUI(data) {
           "Stakeholder Classification",
           "Year Level ( for student)",
           "College",
+          "Program( for student and faculty only)",
           "Department ( for student and faculty only)",
         ].includes(key)
       ) {
@@ -63,10 +64,3 @@ export default function transformDataToUI(data) {
 
   return averagesArray;
 }
-
-[
-  "1.1.2 Is played in classrooms, office, and social media. media",
-  "1.2.10. Communicates the dreams of the University",
-  "1.3.2. Is desseminated to students, faculty members andd stakeholders through various print media",
-  "1.4.4. Perceive the effectiveness of Batangas State University's efforts towards achieving a brand of excellence",
-];

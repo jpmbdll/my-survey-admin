@@ -16,9 +16,15 @@ import {
 import { useDataContext } from "@/contexts/useDataContext";
 import transformDataToUI from "@/utils/transform-data-to-ui";
 import computeStandardDeviation from "@/utils/compute-standard-deviation";
+import filterByCategory from "@/utils/filter-by-category";
 
 export default function Statistics() {
   const { data, isLoading } = useDataContext();
+
+  const fullData = isLoading ? [] : transformDataToUI(data);
+  const tabData1 = fullData.filter((item) => item.title.startsWith("1"));
+  const tabData2 = fullData.filter((item) => item.title.startsWith("2"));
+  const tabData3 = fullData.filter((item) => item.title.startsWith("3"));
 
   return (
     <Stack bg="#f2f2f2" width="100%" height="100%">
@@ -45,41 +51,98 @@ export default function Statistics() {
               {isLoading && (
                 <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((card, i) => (
-                    <Skeleton key={card + i} height="360px" width="100%" />
+                    <Skeleton key={card + i} height="320px" width="100%" />
                   ))}
                 </SimpleGrid>
               )}
               {!isLoading && (
-                <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
-                  {transformDataToUI(data)
-                    .slice(0, 30) //remove
-                    .map((card, i) => (
-                      <CardBar
-                        key={i}
-                        id={i}
-                        title={card.title}
-                        averages={card.averages}
-                        sd={computeStandardDeviation(
-                          card.averages.map((obj) => obj.mean)
-                        )}
-                      />
-                    ))}
-                </SimpleGrid>
+                <Tabs size={"sm"} variant="soft-rounded" colorScheme="red">
+                  <TabList>
+                    <Tab>Vision</Tab>
+                    <Tab>Mission</Tab>
+                    <Tab>Goals</Tab>
+                    <Tab>Objectives</Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel px={0}>
+                      <SimpleGrid
+                        columns={{ base: 1, lg: 2 }}
+                        spacing={5}
+                        pd={0}
+                      >
+                        {filterByCategory(tabData1, 1).map((card, i) => (
+                          <CardBar
+                            key={i}
+                            id={i}
+                            title={card.title}
+                            averages={card.averages}
+                            sd={computeStandardDeviation(
+                              card.averages.map((obj) => obj.mean)
+                            )}
+                          />
+                        ))}
+                      </SimpleGrid>
+                    </TabPanel>
+                    <TabPanel px={0}>
+                      <SimpleGrid
+                        columns={{ base: 1, lg: 2 }}
+                        spacing={5}
+                        pd={0}
+                      >
+                        {filterByCategory(tabData1, 2).map((card, i) => (
+                          <CardBar
+                            key={i}
+                            id={i}
+                            title={card.title}
+                            averages={card.averages}
+                            sd={computeStandardDeviation(
+                              card.averages.map((obj) => obj.mean)
+                            )}
+                          />
+                        ))}
+                      </SimpleGrid>
+                    </TabPanel>
+                    <TabPanel px={0}>
+                      <SimpleGrid
+                        columns={{ base: 1, lg: 2 }}
+                        spacing={5}
+                        pd={0}
+                      >
+                        {filterByCategory(tabData1, 3).map((card, i) => (
+                          <CardBar
+                            key={i}
+                            id={i}
+                            title={card.title}
+                            averages={card.averages}
+                            sd={computeStandardDeviation(
+                              card.averages.map((obj) => obj.mean)
+                            )}
+                          />
+                        ))}
+                      </SimpleGrid>
+                    </TabPanel>
+                    <TabPanel px={0}>
+                      <SimpleGrid
+                        columns={{ base: 1, lg: 2 }}
+                        spacing={5}
+                        pd={0}
+                      >
+                        {filterByCategory(tabData1, 4).map((card, i) => (
+                          <CardBar
+                            key={i}
+                            id={i}
+                            title={card.title}
+                            averages={card.averages}
+                            sd={computeStandardDeviation(
+                              card.averages.map((obj) => obj.mean)
+                            )}
+                          />
+                        ))}
+                      </SimpleGrid>
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
               )}
-            </TabPanel>
-            <TabPanel px={0} py={5}>
-              <SimpleGrid
-                columns={{ base: 1, sm: 2, lg: 3 }}
-                spacing={5}
-                pd={0}
-              ></SimpleGrid>
-            </TabPanel>
-            <TabPanel px={0} py={5}>
-              <SimpleGrid
-                columns={{ base: 1, sm: 2, lg: 3 }}
-                spacing={5}
-                pd={0}
-              ></SimpleGrid>
             </TabPanel>
           </TabPanels>
         </Tabs>
