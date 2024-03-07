@@ -24,7 +24,9 @@ const fetchData = async () => {
 
 // Component to provide data through context
 export const DataProvider = ({ children }) => {
-  const { data, isLoading, isError } = useQuery("data", fetchData);
+  const { data, isLoading, isError } = useQuery("data", fetchData, {
+    refetchInterval: 600000,
+  });
 
   // Fetch data when component mounts
   useEffect(() => {

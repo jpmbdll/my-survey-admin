@@ -17,5 +17,5 @@ export default function computeStandardDeviation(arr) {
   // Step 5: Take the square root of the mean of squared deviations
   const standardDeviation = Math.sqrt(meanSquaredDeviations);
 
-  return standardDeviation.toFixed(2);
+  return standardDeviation;
 }
