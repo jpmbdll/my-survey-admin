@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useEffect, useContext } from "react";
+import { toast, Flip } from "react-toastify";
 import { useQuery } from "react-query";
 
 // Create a context for managing API data
@@ -24,8 +25,20 @@ const fetchData = async () => {
 
 // Component to provide data through context
 export const DataProvider = ({ children }) => {
-  const { data, isLoading, isError } = useQuery("data", fetchData, {
+  const { data, isLoading, isError, refetch } = useQuery("data", fetchData, {
     refetchInterval: 600000,
+    onError: (error) => {
+      // Handle error here, and trigger a refetch if needed
+      toast.error("Internal server error!", {
+        position: "top-center",
+        autoClose: 3000,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+      });
+      refetch(); // This will trigger a refetch if an error occurs
+    },
   });
 
   // Fetch data when component mounts
