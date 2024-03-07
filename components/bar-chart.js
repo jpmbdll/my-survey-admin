@@ -28,13 +28,28 @@ const CardWithChart = ({ averages }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xAxisLabel" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            content={<CustomTooltip title={averages.respondentType} />}
+          />
           <Legend />
           <Bar dataKey="mean" stackId="a" fill="#9B2C2C" />
         </BarChart>
       </ResponsiveContainer>
     </Box>
   );
+};
+
+const CustomTooltip = ({ active, payload, label }) => {
+  console.log(payload);
+  if (active && payload && payload.length) {
+    return (
+      <Box bg="white" p={3} borderRadius={5} fontSize={12}>
+        {`${payload[0].payload.respondentType} : ${payload[0].payload.mean}`}
+      </Box>
+    );
+  }
+
+  return null;
 };
 
 export default CardWithChart;
