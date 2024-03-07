@@ -39,8 +39,7 @@ const CardWithChart = ({ averages }) => {
   );
 };
 
-const CustomTooltip = ({ active, payload, label }) => {
-  console.log(payload);
+const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <Box bg="white" p={3} borderRadius={5} fontSize={12}>
