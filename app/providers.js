@@ -8,9 +8,7 @@ const queryClient = new QueryClient();
 export function Providers({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <DataProvider>{children}</DataProvider>
-      </ChakraProvider>
+      <ChakraProvider>{children}</ChakraProvider>
     </QueryClientProvider>
   );
 }

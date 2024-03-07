@@ -53,28 +53,31 @@ export default function Statistics() {
         spacing={6}
       >
         <RenderCount />
-        <Tabs colorScheme="red" pd={0}>
-          <TabList>
-            <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-              Awareness
-            </Tab>
-            <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-              Acceptance
-            </Tab>
-            <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-              Understanding
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel px={0} py={5}>
-              {isLoading && (
-                <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
-                  {[...Array(10)].map((card, i) => (
-                    <Skeleton key={i} height="320px" width="100%" />
-                  ))}
-                </SimpleGrid>
-              )}
-              {!isLoading && (
+        {isLoading && (
+          <>
+            <Skeleton height={24} width="100%" />
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={5} pd={0}>
+              {[...Array(10)].map((i) => (
+                <Skeleton key={i} height="300px" width="100%" />
+              ))}
+            </SimpleGrid>
+          </>
+        )}
+        {!isLoading && (
+          <Tabs colorScheme="red" pd={0}>
+            <TabList>
+              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+                Awareness
+              </Tab>
+              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+                Acceptance
+              </Tab>
+              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
+                Understanding
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel px={0} py={5}>
                 <Tabs size={"sm"} variant="soft-rounded" colorScheme="red">
                   <TabList>
                     <Tab>Vision</Tab>
@@ -161,10 +164,10 @@ export default function Statistics() {
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
-              )}
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        )}
       </Stack>
     </Stack>
   );
