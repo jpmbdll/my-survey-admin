@@ -91,7 +91,7 @@ export default function Statistics() {
           </>
         )}
         {!isLoading && (
-          <Tabs colorScheme="red" pd={0}>
+          <Tabs isFitted colorScheme="red" pd={0}>
             <TabList>
               <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
                 Awareness
