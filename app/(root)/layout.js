@@ -4,8 +4,7 @@ import { Header } from "@/components/header";
 export default function RootLayout({ children }) {
   return (
     <Providers>
-      <Header />
-      {children}
+      <Header />d{children}
     </Providers>
   );
 }
