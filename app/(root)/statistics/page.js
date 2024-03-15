@@ -93,20 +93,32 @@ export default function Statistics() {
         {!isLoading && (
           <Tabs isFitted colorScheme="red" pd={0}>
             <TabList>
-              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-                Awareness
+              <Tab
+                fontSize={{ base: 14, md: 16 }}
+                fontWeight="bold"
+                isDisabled={isLoading}
+              >
+                AWARENESS
               </Tab>
-              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-                Acceptance
+              <Tab
+                fontSize={{ base: 14, md: 16 }}
+                fontWeight="bold"
+                isDisabled={isLoading}
+              >
+                ACCEPTANCE
               </Tab>
-              <Tab fontSize={{ base: 14, md: 16 }} isDisabled={isLoading}>
-                Understanding
+              <Tab
+                fontSize={{ base: 14, md: 16 }}
+                fontWeight="bold"
+                isDisabled={isLoading}
+              >
+                UNDERSTANDING
               </Tab>
             </TabList>
             <TabPanels>
               {panelObjects.map(({ items }, i) => (
                 <TabPanel px={0} py={5} key={i}>
-                  <Tabs size={"sm"} variant="soft-rounded" colorScheme="red">
+                  <Tabs size="sm" variant="soft-rounded" colorScheme="red">
                     <TabList>
                       <Tab>Vision</Tab>
                       <Tab>Mission</Tab>
