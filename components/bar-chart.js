@@ -31,7 +31,6 @@ const CardWithChart = ({ averages }) => {
           <Tooltip
             content={<CustomTooltip title={averages.respondentType} />}
           />
-          <Legend />
           <Bar dataKey="mean" stackId="a" />
         </BarChart>
       </ResponsiveContainer>
