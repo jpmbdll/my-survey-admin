@@ -1,4 +1,24 @@
 import transformQuestion from "./transform-question";
+import { colors } from "@/constants/colors";
+
+const identifyFill = (type) => {
+  if (type === "Student") {
+    return colors[0];
+  }
+  if (type === "Faculty") {
+    return colors[1];
+  }
+  if (type === "Alumni") {
+    return colors[2];
+  }
+  if (type === "Non-teaching Staff") {
+    return colors[3];
+  }
+  if (type === "Administrator") {
+    return colors[4];
+  }
+  return "#9B2C2C";
+};
 
 export default function transformDataToUI(data) {
   const averagesMap = new Map();
@@ -39,6 +59,7 @@ export default function transformDataToUI(data) {
           respondentAvg = {
             xAxisLabel: response["Stakeholder Classification"].substring(0, 3),
             respondentType: response["Stakeholder Classification"],
+            fill: identifyFill(response["Stakeholder Classification"]),
             sum: 0,
             count: 0,
           };
