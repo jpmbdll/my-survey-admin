@@ -8,14 +8,16 @@ import {
   Text,
   Stack,
   Box,
+  ListItem,
+  UnorderedList,
 } from "@chakra-ui/react";
-import { vision, mission, goals, objectives } from "@/constants/definition";
+import { vision, mission, goals, coreValues } from "@/constants/definition";
 
 const map = [
   { title: "Mission", content: mission },
   { title: "Vision", content: vision },
   { title: "Goals", content: goals },
-  { title: "Objectives", content: objectives },
+  { title: "Core Values", content: coreValues },
 ];
 
 export default function Home() {
@@ -48,7 +50,7 @@ export default function Home() {
           );
           if (title === "Goals") {
             d = content.map((c, i) => (
-              <Box>
+              <Box key={i}>
                 <Text color="white" fontSize={{ base: "sm", lg: "md" }} pb={0}>
                   {c.pillar}
                 </Text>
@@ -57,6 +59,16 @@ export default function Home() {
                 </Text>
               </Box>
             ));
+          }
+
+          if (title === "Core Values") {
+            d = (
+              <UnorderedList>
+                {content.map((c, i) => (
+                  <ListItem key={i}>{c}</ListItem>
+                ))}
+              </UnorderedList>
+            );
           }
           return (
             <Card
