@@ -24,6 +24,9 @@ export function Header() {
       spacing={2}
       borderBottom={"1px solid"}
       borderColor={"gray.200"}
+      position={"fixed"}
+      zIndex={999}
+      width={"100%"}
     >
       <Stack direction="row" spacing={3}>
         <Image

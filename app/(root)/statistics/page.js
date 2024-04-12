@@ -76,7 +76,7 @@ export default function Statistics() {
     <Stack bg="#f2f2f2" width="100%" height="100%">
       <Stack
         mx={{ base: 3, sm: 6, md: 12 }}
-        my={{ base: 3, sm: 5, md: 10 }}
+        pt={{ base: 16, sm: 20, md: 24 }}
         spacing={6}
       >
         <Count />
